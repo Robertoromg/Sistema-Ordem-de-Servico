@@ -5,7 +5,7 @@
  */
 package br.com.infox.dal;
 
-import java.sql.Connection;
+import java.sql.*;
 import java.sql.DriverManager;
 
 /**
