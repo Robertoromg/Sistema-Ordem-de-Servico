@@ -6,6 +6,7 @@
 package br.com.infox.telas;
 
 import br.com.infox.dal.ModuloConexao;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,11 +36,33 @@ public class TelaLogin extends javax.swing.JFrame {
             //a linha abaixo executa a query
             rs = pst.executeQuery();
             
+            //condição de busca de usuario correspondente
             if (rs.next()){
+                //a linha abaixo obtem o conteudo do campo perfil da tabela
+                String perfil = rs.getString(6);
+                String usuario= rs.getString(2);
+                //System.out.println(perfil);
+                //fazendo tratamento de perfil de acesso
+                if(perfil.equals("administrador")||(perfil.equals("Administrador"))
+                    ||perfil.equals("ADMINISTRADOR"))
+                        {
+                //chamando tela TtelaPrincipal
                 TelaPrincipal principal = new TelaPrincipal();
                 principal.setVisible(true);
+                TelaPrincipal.MenRel.setEnabled(true);
+                TelaPrincipal.MenCadUsu.setEnabled(true);
+                TelaPrincipal.lblUsuario.setText(usuario);
+                TelaPrincipal.lblUsuario.setForeground(Color.RED);
                 this.dispose();
                 conexao.close();
+                }else {
+                TelaPrincipal principal = new TelaPrincipal();
+                principal.setVisible(true);
+                TelaPrincipal.lblUsuario.setText(usuario);
+                TelaPrincipal.lblUsuario.setForeground(Color.blue);
+                this.dispose();
+                conexao.close();
+            }
             }else{
                 JOptionPane.showMessageDialog(null, "Usuário ou senha incorreto(s)");
             }
