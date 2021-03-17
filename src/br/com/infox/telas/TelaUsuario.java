@@ -18,6 +18,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
     
+    
     public TelaUsuario() {
         initComponents();
         conexao = ModuloConexao.conector();
@@ -43,7 +44,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 txtUsuFone.setText(null);
                 txtusuLogin.setText(null);
                 txtUsuSenha.setText(null);
-                cboUsuPerfil.setSelectedItem(null);    
+                   
                     }
         }catch (Exception e){
             JOptionPane.showMessageDialog(null,e);
@@ -74,10 +75,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             }
             
             else{
-            
-            
             //atualizar tabela usuario c/ dados do formulário
-            
             int adicionado = pst.executeUpdate();
             if(adicionado>0){
                 JOptionPane.showMessageDialog(null,"Usuário adicionado com sucesso");
@@ -87,12 +85,83 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 txtUsuFone.setText(null);
                 txtusuLogin.setText(null);
                 txtUsuSenha.setText(null);
-                cboUsuPerfil.setSelectedItem(null);
+                
             }
             }
         }catch (Exception e){
             JOptionPane.showMessageDialog(null,e);
         }
+    
+    }
+    
+    private void alterar(){
+        String sql = "update tbusuarios set usuario=?, fone=?, login=?,senha=?, perfil=? where idUser=?";
+       try{
+            
+            pst = conexao.prepareStatement(sql);
+            
+            pst.setString(1,txtUsuNome.getText());
+            pst.setString(2,txtUsuFone.getText());
+            pst.setString(3,txtusuLogin.getText());
+            pst.setString(4,txtUsuSenha.getText());
+            pst.setString(5,cboUsuPerfil.getSelectedItem().toString());
+            pst.setString(6,txtUsuId.getText());
+            
+            //validação dos campos obrigatórios
+            if(txtUsuId.getText().isEmpty()|| (txtUsuNome.getText().isEmpty())||
+              (txtUsuFone.getText().isEmpty())|| (txtusuLogin.getText().isEmpty()) ||     
+                    (txtUsuSenha.getText().isEmpty())
+                    )
+            
+            {
+                JOptionPane.showMessageDialog(null,"Campos Obrigatórios");
+            }
+            
+            else{
+            //atualizar tabela usuario c/ dados do formulário
+            int adicionado = pst.executeUpdate();
+            if(adicionado>0){
+                JOptionPane.showMessageDialog(null,"Dados so usuário alterados com sucesso");
+                //limpa os campos apos adicionar ao banco de dados
+                txtUsuId.setText(null);
+                txtUsuNome.setText(null);
+                txtUsuFone.setText(null);
+                txtusuLogin.setText(null);
+                txtUsuSenha.setText(null);
+                
+            }
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null,e);
+        }
+    
+    }
+    
+    //método responsavel remoção de usuários
+    private void apagar(){
+        //estrutura para confirmar exclusão
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover esse usuário", "Atenção", JOptionPane.YES_NO_OPTION);
+    
+        if(confirma == JOptionPane.YES_OPTION){
+            String sql ="delete from tbusuarios where  idUser= ?";
+        try {
+                pst = conexao.prepareStatement(sql);
+                pst.setInt(1, Integer.parseInt(txtUsuId.getText()));
+                int apagado = pst.executeUpdate();
+                if(apagado > 0){
+                    JOptionPane.showMessageDialog(null, "Usuário removido com sucesso !");
+                    txtUsuId.setText(null);
+                    txtUsuNome.setText(null);
+                    txtUsuFone.setText(null);
+                    txtusuLogin.setText(null);
+                    txtUsuSenha.setText(null);
+                } 
+                
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        
     
     }
     /**
@@ -143,17 +212,18 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("*PERFIL:");
 
-        txtUsuNome.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtUsuNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        txtUsuFone.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txtUsuFone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsuFoneActionPerformed(evt);
             }
         });
 
-        txtusuLogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtusuLogin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        txtUsuSenha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtUsuSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         cboUsuPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admistrador", "Funcionário" }));
 
@@ -171,6 +241,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         btnUsuDelete.setToolTipText("Apagar");
         btnUsuDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsuDelete.setPreferredSize(new java.awt.Dimension(60, 60));
+        btnUsuDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuDeleteActionPerformed(evt);
+            }
+        });
 
         btnUsuRead.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/read.png"))); // NOI18N
         btnUsuRead.setToolTipText("Pesquisar");
@@ -186,11 +261,16 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         btnUsuUpdate.setToolTipText("Alterar");
         btnUsuUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsuUpdate.setPreferredSize(new java.awt.Dimension(60, 60));
+        btnUsuUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuUpdateActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("*CÓDIGO:");
 
-        txtUsuId.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtUsuId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txtUsuId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsuIdActionPerformed(evt);
@@ -274,7 +354,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(cboUsuPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUsuCreate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUsuRead, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -303,6 +383,16 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
     private void txtUsuIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuIdActionPerformed
+
+    private void btnUsuUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuUpdateActionPerformed
+        // chamando o método alterar
+        alterar();
+    }//GEN-LAST:event_btnUsuUpdateActionPerformed
+
+    private void btnUsuDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuDeleteActionPerformed
+        // excluindo usuario no sistema
+        apagar();
+    }//GEN-LAST:event_btnUsuDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
