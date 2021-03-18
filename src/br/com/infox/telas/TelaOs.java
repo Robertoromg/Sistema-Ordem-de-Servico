@@ -63,6 +63,44 @@ public class TelaOs extends javax.swing.JInternalFrame {
         txtCodOs.setText(tbOs.getModel().getValueAt(setar, 0).toString());
     }
 
+    //metodo cadastrar ordm de serviço
+    
+    private void emitirOs(){
+        String sql = "insert into tbos (tipo,situacao,equipamento,defeito,servico,tecnico,valor,idcli) values (?,?,?,?,?,?,?,?)";
+        try{
+            pst= conexao.prepareStatement(sql);
+            pst.setString(1,tipo);
+            pst.setString(2,cmbOs.getSelectedItem().toString());
+            pst.setString(3,txtEqui.getText());
+            pst.setString(4,txtDef.getText());
+            pst.setString(5,txtServ.getText());
+            pst.setString(6,txtTec.getText());
+            pst.setString(7,txtValor.getText().replaceAll(",", "."));
+            pst.setString(8,txtCodOs.getText());
+            
+            // validado camppos obrigatorios
+            
+            if((txtCodOs.getText().isEmpty())|| (txtEqui.getText().isEmpty())||(txtDef.getText().isEmpty())
+                    ||(txtServ.getText().isEmpty()) ||(txtTec.getText().isEmpty())
+                    ){
+                        JOptionPane.showMessageDialog(null, "Campos Obrigatórios");
+            }else{
+                int adicionado = pst.executeUpdate();
+                if(adicionado>0){
+                    JOptionPane.showMessageDialog(null, "OS emitida com sucesso");
+                    txtEqui.setText(null);
+                    txtDef.setText(null);
+                    txtServ.setText(null);
+                    txtTec.setText(null);
+                    txtValor.setText(null);
+                    txtCodOs.setText(null);
+                    
+                }
+            }
+        }catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }   
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -200,8 +238,7 @@ public class TelaOs extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Situação:");
 
-        cmbOs.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        cmbOs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entregue", "Orçamento reprovado", "Aguardando Aprovação", "Aguardando peças", "Na bancada", "Retorno pela garantia", "Abandonado pelo cliente" }));
+        cmbOs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Na bancada", "Entregue", "Orçamento reprovado", "Aguardando Aprovação", "Aguardando peças", "Retorno pela garantia", "Abandonado pelo cliente" }));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cliente"));
         jPanel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -283,10 +320,17 @@ public class TelaOs extends javax.swing.JInternalFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("*Técnico");
 
+        txtValor.setText("00");
+
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/create.png"))); // NOI18N
         jButton2.setToolTipText("adicionar");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.setPreferredSize(new java.awt.Dimension(40, 40));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/read.png"))); // NOI18N
         jButton3.setToolTipText("pesquisar");
@@ -427,6 +471,11 @@ public class TelaOs extends javax.swing.JInternalFrame {
         rdOrca.setSelected(true);
         tipo= "Orçamento";
     }//GEN-LAST:event_formInternalFrameOpened
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // chamando evento emitir os
+        emitirOs();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
