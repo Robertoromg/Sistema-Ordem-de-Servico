@@ -11,6 +11,8 @@ package br.com.infox.telas;
  */
 import java.sql.*;
 import br.com.infox.dal.ModuloConexao;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 public class TelaUsuario extends javax.swing.JInternalFrame {
 
@@ -88,8 +90,17 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 
             }
             }
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(null,e);
+        }catch (java.sql.SQLIntegrityConstraintViolationException e){
+            JOptionPane.showMessageDialog(null,"Verifique se o código ou login"+"\nestá sendo usado por outro usuário");
+            System.out.println(e);
+        }
+        catch (com.mysql.cj.jdbc.exceptions.MysqlDataTruncation e) {
+            JOptionPane.showMessageDialog( null, "Código deve conter apenas números");
+            System.out.println(e);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(Exception e2){
+            JOptionPane.showMessageDialog( null, e2);
         }
     
     }
