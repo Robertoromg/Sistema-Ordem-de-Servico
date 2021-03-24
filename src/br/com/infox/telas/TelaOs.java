@@ -99,9 +99,15 @@ public class TelaOs extends javax.swing.JInternalFrame {
                     
                 }
             }
-        }catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }   
+        }catch (com.mysql.cj.jdbc.exceptions.MysqlDataTruncation e) {
+            JOptionPane.showMessageDialog(null,"Valor Inválido");
+            System.out.println(e);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaOs.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch(Exception e2){
+            JOptionPane.showMessageDialog( null, e2);
+        }
     }
     
     //metodo para pesquisar uma Os
@@ -365,6 +371,11 @@ public class TelaOs extends javax.swing.JInternalFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cliente"));
         jPanel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
+        txtCliPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCliPesquisarActionPerformed(evt);
+            }
+        });
         txtCliPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCliPesquisarKeyReleased(evt);
@@ -628,6 +639,10 @@ public class TelaOs extends javax.swing.JInternalFrame {
         // chamando meto excluir
         excluirOs();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void txtCliPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCliPesquisarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCliPesquisarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
