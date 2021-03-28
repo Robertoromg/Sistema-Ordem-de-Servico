@@ -148,13 +148,14 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel2.setText("Controle de Ordem de Serviço");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        jLabel3.setText("Usuário:");
+        jLabel3.setText("Usuário");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        jLabel4.setText("Senha:");
+        jLabel4.setText("Senha");
 
         btnLogin.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         btnLogin.setText("Entrar");
+        btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
@@ -191,7 +192,7 @@ public class TelaLogin extends javax.swing.JFrame {
                                 .addComponent(btnLogin))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(68, 68, 68)
+                                .addGap(61, 61, 61)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)

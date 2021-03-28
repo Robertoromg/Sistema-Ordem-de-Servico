@@ -41,7 +41,7 @@ public class TelaSobre extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/iconLam (1).png"))); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
-        jLabel5.setText("Sempre preencha os campos que estiver com *;");
+        jLabel5.setText("Sempre preencha os campos que estiverem com *;");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
         jLabel7.setText("Confira sempre o cliente na hora de abrir uma OS;");
@@ -50,7 +50,7 @@ public class TelaSobre extends javax.swing.JFrame {
         jLabel8.setText("Fique atento ao código, é através dele que o cliente é identificado.");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
-        jLabel9.setText("Em caso de erro de dados basta clicar em editar;");
+        jLabel9.setText("Para atualização  de cadastro clique editar;");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel1.setText("Posso te ajudar?");
@@ -67,7 +67,7 @@ public class TelaSobre extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel9)
                             .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)

@@ -76,10 +76,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblData.setText("Data");
 
         menCad.setText("Gerenciar");
+        menCad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menCad.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         MenCadCli.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
         MenCadCli.setText("Clientes");
+        MenCadCli.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenCadCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenCadCliActionPerformed(evt);
@@ -89,6 +91,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         MenCadOs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
         MenCadOs.setText("Os");
+        MenCadOs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenCadOs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenCadOsActionPerformed(evt);
@@ -98,6 +101,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         MenCadUsu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
         MenCadUsu.setText("Usuários");
+        MenCadUsu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenCadUsu.setEnabled(false);
         MenCadUsu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,11 +113,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Menu.add(menCad);
 
         MenRel.setText("Relatorio");
+        MenRel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenRel.setEnabled(false);
         MenRel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         MenRelSer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         MenRelSer.setText("Serviços");
+        MenRelSer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenRelSer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenRelSerActionPerformed(evt);
@@ -124,10 +130,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Menu.add(MenRel);
 
         MenAju.setText("Ajuda");
+        MenAju.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenAju.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         MenAjuSob.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
         MenAjuSob.setText("Sobre");
+        MenAjuSob.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenAjuSob.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenAjuSobActionPerformed(evt);
@@ -138,10 +146,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Menu.add(MenAju);
 
         MenOpc.setText("Opções");
+        MenOpc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenOpc.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         MenOpcSai.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
         MenOpcSai.setText("Sair");
+        MenOpcSai.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenOpcSai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenOpcSaiActionPerformed(evt);
@@ -164,11 +174,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(lblData))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(lblUsuario))))
+                        .addGap(93, 93, 93)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblUsuario)
+                            .addComponent(lblData)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,9 +187,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(desktop, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblUsuario)
-                        .addGap(59, 59, 59)
+                        .addGap(33, 33, 33)
                         .addComponent(lblData)
-                        .addGap(58, 58, 58)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel2))))
         );
 
