@@ -18,7 +18,11 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.Date;
+import java.util.HashMap;
 import net.proteanit.sql.DbUtils;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class TelaOs extends javax.swing.JInternalFrame {
 
@@ -127,11 +131,7 @@ public class TelaOs extends javax.swing.JInternalFrame {
                 txtOs.setText(rs.getString(1));
                 txtOsData.setText(data);
                 
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-                String dateInString = data;
-                sdf.parse(dateInString);
-         
-                System.out.println(sdf);
+                
                 //setar radios buttons
                 
                 String rbtTipo= rs.getString(3);
@@ -242,6 +242,28 @@ public class TelaOs extends javax.swing.JInternalFrame {
             }
         }
     }
+    
+    
+    private void imprimirOs(){
+        // imprimindo uma os
+        int confirma = JOptionPane.showConfirmDialog(null, "Deseja imprimir essa OS? ", "Atenção", JOptionPane.YES_NO_OPTION);
+        if(confirma == JOptionPane.YES_OPTION){
+            //imprimindo relatorio co o framework JasperReport
+            try {
+                //usando a classe HashMap para criar um filtro
+                HashMap filtro = new HashMap();
+                filtro.put("os",Integer.parseInt(txtOs.getText()));
+                //Usando a classe jasperPrint para preparar a impressão de um relatorio
+                JasperPrint print = JasperFillManager.fillReport("C:/Reports/OS.jasper",filtro, conexao);
+                //a linha abaixo exibe o relatorio atraves da classe JasperViewer
+                JasperViewer.viewReport(print, false);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "OS inválida");
+                System.out.println(e);
+            }
+            
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -282,6 +304,7 @@ public class TelaOs extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -509,6 +532,16 @@ public class TelaOs extends javax.swing.JInternalFrame {
             }
         });
 
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/imprimir.png"))); // NOI18N
+        btnImprimir.setToolTipText("Imprimir OS");
+        btnImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnImprimir.setPreferredSize(new java.awt.Dimension(40, 40));
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -550,13 +583,15 @@ public class TelaOs extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnOsAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62)
+                .addGap(34, 34, 34)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63)
+                .addGap(36, 36, 36)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66)
+                .addGap(36, 36, 36)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(74, 74, 74))
+                .addGap(34, 34, 34)
+                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -594,7 +629,8 @@ public class TelaOs extends javax.swing.JInternalFrame {
                     .addComponent(btnOsAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16))
         );
 
@@ -652,8 +688,14 @@ public class TelaOs extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCliPesquisarActionPerformed
 
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        // TODO add your handling code here:
+       imprimirOs();
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnOsAdd;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cmbOs;
